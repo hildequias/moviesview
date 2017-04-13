@@ -56,7 +56,7 @@
         
     } onFailure:^(NSString *error) {
         NSLog(@"%@", error);
-        XCTAssertNotNil(token, @"Authentication returned nil");
+        XCTAssertNotNil(error, @"Authentication returned nil");
     }];
     
     while(dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
