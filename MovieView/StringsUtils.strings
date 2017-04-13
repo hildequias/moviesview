@@ -1,0 +1,12 @@
+/* 
+  StringsUtils.strings
+  MovieView
+
+  Created by Hildequias Junior on 4/13/17.
+  Copyright © 2017 Pixonsoft. All rights reserved.
+*/
+
+/* HTTP */
+"MSG_NO_INTERNET_REACHABLE" = "Você deve ter uma conexão de internet ativa para efetuar essa operação!";
+"MSG_REQUEST_ERROR" = "Não foi possível estabelecer comunicação com o servidor. Verifique se o dispositivo está conectado à internet e tente novamente.";
+"MSG_ERROR_UNDEFINED" = "Erro ao executar solicitação.";
