@@ -38,13 +38,31 @@
     }];
 }
 
--(void) getMovies:(moviesBlock) onComplete onFailure:(errorBlock) onFailure {
+-(void) getMovies:(NSNumber *)page  onComplete:(moviesBlock) onComplete onFailure:(errorBlock) onFailure {
     
-    [self doGet:[NSString stringWithFormat:@"%@%@", MOVIE_POLULAR_URL, @"1"] withCallback:^(NSData *data) {
+    [self doGet:[NSString stringWithFormat:@"%@%d", MOVIE_POLULAR_URL, (int)page] withCallback:^(NSData *data) {
         
         if (!data) onFailure(@"");
         NSDictionary *json  = (NSDictionary*) data;
-        onComplete(json);
+        Movie *movie = [[Movie alloc] initWithListDictionary:json];
+        
+        onComplete(movie.movies);
+        
+    } orError:^(NSString *reason) {
+        NSLog(@"JSON: %@", reason);
+        onFailure(reason);
+    }];
+}
+
+-(void) getMovieDetail:(NSNumber *) _id onComplete:(movieBlock) onComplete onFailure:(errorBlock) onFailure {
+    
+    [self doGet:[NSString stringWithFormat:MOVIE_DETAILS, BASE_URL, _id, API_KEY] withCallback:^(NSData *data) {
+        
+        if (!data) onFailure(@"");
+        NSDictionary *json  = (NSDictionary*) data;
+        Movie *movie = [[Movie alloc] initWithDetail:json];
+        
+        onComplete(movie);
         
     } orError:^(NSString *reason) {
         NSLog(@"JSON: %@", reason);

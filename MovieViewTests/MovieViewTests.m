@@ -30,18 +30,6 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
-
 - (void) testAuthenticate {
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -63,18 +51,42 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:5]];
 }
 
-- (void) testMoviesPopular {
+- (void) testGetMoviesPopular {
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
-    [service getMovies:^(NSArray<Movie *> *movies) {
+    NSNumber *page = [NSNumber numberWithInt:1];
+    
+    [service getMovies:page onComplete:^(NSArray<Movie *> *movies) {
         
         NSLog(@"%@", movies);
         XCTAssertNotNil(movies, @"Movies Popular returned nil");
+        dispatch_semaphore_signal(semaphore);
         
     } onFailure:^(NSString *error) {
         NSLog(@"%@", error);
-        XCTAssertTrue(NO, @"Movies Popular returned nil");
+        XCTAssertNotNil(error, @"Movies Popular returned nil");
+    }];
+    
+    while(dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:5]];
+}
+
+- (void) testGetMovieDetail {
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    NSNumber *page = [NSNumber numberWithInt:7213];
+    
+    [service getMovieDetail:page onComplete:^(Movie *movie) {
+        
+        NSLog(@"%@", movie);
+        XCTAssertNotNil(movie, @"Movie Detail returned nil");
+        dispatch_semaphore_signal(semaphore);
+        
+    } onFailure:^(NSString *error) {
+        NSLog(@"%@", error);
+        XCTAssertNotNil(error, @"Movie Detail returned nil");
     }];
     
     while(dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))

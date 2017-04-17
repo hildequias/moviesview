@@ -11,4 +11,8 @@
 
 #define AUTHENTICATION_URL      [NSString stringWithFormat:@"%@authentication/token/new?api_key=%@", BASE_URL, API_KEY]
 
-#define MOVIE_POLULAR_URL      [NSString stringWithFormat:@"%@movie/popular?api_key=%@&language=en-US&page=", BASE_URL, API_KEY]
+#define MOVIE_POLULAR_URL       [NSString stringWithFormat:@"%@movie/popular?api_key=%@&language=en-US&page=", BASE_URL, API_KEY]
+
+#define URL_IMAGES              @"https://image.tmdb.org/t/p/w500/"
+
+#define MOVIE_DETAILS           @"%@movie/%@?api_key=%@"

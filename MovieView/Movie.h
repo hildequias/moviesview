@@ -25,4 +25,22 @@
 @property (nonatomic) BOOL video;
 @property (nonatomic) NSDecimalNumber *voteAverage;
 
+@property (nonatomic) NSNumber *budget;
+@property (nonatomic) NSString *homepage;
+@property (nonatomic) NSString *imdbId;
+@property (nonatomic) NSArray *productionCompanies;
+@property (nonatomic) NSArray *productionCountries;
+@property (nonatomic) NSNumber *revenue;
+@property (nonatomic) NSNumber *runtime;
+@property (nonatomic) NSArray *spokenLanguages;
+@property (nonatomic) NSString *status;
+@property (nonatomic) NSString *tagline;
+
+@property (nonatomic) NSNumber *page;
+@property (nonatomic) NSNumber *totalPages;
+@property (nonatomic) NSMutableArray<Movie *> *movies;
+
+- (id)initWithDetail:(NSDictionary *) obj;
+- (id)initWithListDictionary:(NSDictionary *) obj;
+
 @end
